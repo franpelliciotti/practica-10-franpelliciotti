@@ -36,13 +36,38 @@ public class AdjacencyListIntGraph implements IntGraph {
      */
     @Override
     public void addEdge(int v, int w) {
-        if(v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " is ");
+        if(v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if(w < 0 || w >= V) throw new IllegalArgumentException("vertex " + w + " is not between 0 and " + (V-1));
+        adj[v].add(w);
+        adj[w].add(v);
+        E++;
     }
 
     @Override
     public List<Integer> adj(int v) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'adj'");
+        if(v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        return adj[v];
     }
 
+    public String toString(){
+        String s = "";
+        for(int i = 0; i < adj.length; i++){
+            for(int j = i; j < adj[i].size(); j++){
+                s += i + ": [" + adj[i].get(j).toString() + "] - ";
+            }
+            s += "\n";
+        }
+        return s;
+    }
+
+    public static void main(String[] args){
+        AdjacencyListIntGraph g = new AdjacencyListIntGraph(6);
+        g.addEdge(0, 1);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 4);
+        g.addEdge(4, 5);
+
+        System.out.println(g.toString());
+    }
 }
