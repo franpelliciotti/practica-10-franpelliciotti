@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdjacencyMatrixIntGraph implements IntGraph {
+public class AdjacencyMatrixIntDigraph implements IntDigraph {
     private final int V;
     private int E;
     private int[][] adj;
@@ -10,7 +10,7 @@ public class AdjacencyMatrixIntGraph implements IntGraph {
      * @pre v >= 0
      * @post Initializes a graph with v vertices and 0 edges.
      */
-    public AdjacencyMatrixIntGraph(int V){
+    public AdjacencyMatrixIntDigraph(int V){
         if(V < 0) throw new IllegalArgumentException("v number must be greater or equal than zero.");
         this.V = V;
         E = 0;
@@ -34,7 +34,6 @@ public class AdjacencyMatrixIntGraph implements IntGraph {
         if(w < 0 || w >= V) throw new IllegalArgumentException("vertex " + w + " is not between 0 and " + (V-1));
         E++;
         adj[v][w] = 1;
-        adj[w][v] = 1;
     }
 
     public List<Integer> adj(int v) {
@@ -59,7 +58,7 @@ public class AdjacencyMatrixIntGraph implements IntGraph {
     }
 
     public static void main(String[] args){
-        AdjacencyMatrixIntGraph g = new AdjacencyMatrixIntGraph(6);
+        AdjacencyMatrixIntDigraph g = new AdjacencyMatrixIntDigraph(6);
         g.addEdge(0, 1);
         g.addEdge(0, 2);
         g.addEdge(0, 3);
