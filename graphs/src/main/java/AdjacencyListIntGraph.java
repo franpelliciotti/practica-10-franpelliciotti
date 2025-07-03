@@ -52,8 +52,9 @@ public class AdjacencyListIntGraph implements IntGraph {
     public String toString(){
         String s = "";
         for(int i = 0; i < adj.length; i++){
-            for(int j = i; j < adj[i].size(); j++){
-                s += i + ": [" + adj[i].get(j).toString() + "] - ";
+            s += i + ": ";
+            for(int j = 0; j < adj[i].size(); j++){
+                s += "[" + adj[i].get(j).toString() + "] - ";
             }
             s += "\n";
         }
