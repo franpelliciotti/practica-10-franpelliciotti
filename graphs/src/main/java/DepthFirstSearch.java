@@ -13,10 +13,28 @@ public class DepthFirstSearch {
 
     /**
      * @post Build a new DepthFirstSearch object, in order to 
-     * apply depth-first search algorithm on the given non-directed graph G, beginning at its node s.
+     * apply depth-first search algorithm on the given non-directed graph G,
+     * beginning at its node s.
      */
     public DepthFirstSearch(AdjacencyListIntGraph G, int s){
         this.G = G;
+        this.s = s;
+        isConnected = false;
+        edgeTo = new int[G.V()];
+        marked = new boolean[G.V()];
+        count = 0;
+        dfs(G, s);
+        if(count == G.V())
+            isConnected = true;
+    }
+
+    /**
+     * @post Build a new DepthFirstSearch object, in order to 
+     * apply depth-first search algorithm on the given digraph G, 
+     * beginning at its node s.
+     */
+    public DepthFirstSearch(AdjacencyListIntDigraph G, int s){
+        this.G1 = G;
         this.s = s;
         isConnected = false;
         edgeTo = new int[G.V()];
@@ -42,22 +60,6 @@ public class DepthFirstSearch {
     }
 
     /**
-     * @post Build a new DepthFirstSearch object, in order to 
-     * apply depth-first search algorithm on the given digraph G, beginning at its node s.
-     */
-    public DepthFirstSearch(AdjacencyListIntDigraph G, int s){
-        this.G1 = G;
-        this.s = s;
-        isConnected = false;
-        edgeTo = new int[G.V()];
-        marked = new boolean[G.V()];
-        count = 0;
-        dfs(G, s);
-        if(count == G.V())
-            isConnected = true;
-    }
-
-    /**
      * Depth-first search algorithm for digraphs.
      */
     private void dfs(AdjacencyListIntDigraph G, int v){
@@ -72,13 +74,6 @@ public class DepthFirstSearch {
     }
 
     /**
-     * @post Return true iff the last analized graph is a connected graph.
-     */
-    public boolean isConnected(){
-        return isConnected;
-    }
-
-    /**
      * @pre 0 <= v < V && depth-first search has been executed
      * @post Return true if there's a path from the source vertex
      * to vertex v.
@@ -86,6 +81,16 @@ public class DepthFirstSearch {
     public boolean hasPathTo(int v){
         assert isValidVertex(v);
         return marked[v];
+    }
+
+    public List<Integer> pathTo(int v){
+        isValidVertex(v);
+        if(!hasPathTo(v)) return null;
+        LinkedList<Integer> path = new LinkedList<>();
+        for(int w = v; w != s; w = edgeTo[w])
+            path.addFirst(w);
+        path.addFirst(s);
+        return path;
     }
 
     /**
@@ -96,14 +101,11 @@ public class DepthFirstSearch {
         return v >= 0 && v > G.V();
     }
 
-    public List<Integer> pathTo(int v){
-        isValidVertex(v);
-        if(!hasPathTo(v)) return null;
-        LinkedList<Integer> path = new LinkedList<>();
-        for(int w = v; w != s; w = edgeTo[w])
-            path.addFirst(s);
-        path.addFirst(s);
-        return path;
+    /**
+     * @post Return true iff the last analized graph is a connected graph.
+     */
+    public boolean isConnected(){
+        return isConnected;
     }
 
     public static void main(String[] args){

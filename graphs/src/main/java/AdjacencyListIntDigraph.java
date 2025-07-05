@@ -10,6 +10,7 @@ public class AdjacencyListIntDigraph implements IntDigraph {
      * @pre v >= 0
      * @post Initializes a graph with v vertices and 0 edges.
      */
+    @SuppressWarnings("unchecked")
     public AdjacencyListIntDigraph(int V){
         if(V < 0) throw new IllegalArgumentException("v number must be greater or equal than zero.");
         this.V = V;
