@@ -8,11 +8,12 @@ public class DepthFirstSearch {
     int count;
     boolean isConnected;
     AdjacencyListIntGraph G;
+    AdjacencyListIntDigraph G1;
     int s;
 
     /**
      * @post Build a new DepthFirstSearch object, in order to 
-     * apply depth-first search algorithm on the given graph G, beginning at its node s.
+     * apply depth-first search algorithm on the given non-directed graph G, beginning at its node s.
      */
     public DepthFirstSearch(AdjacencyListIntGraph G, int s){
         this.G = G;
@@ -27,9 +28,39 @@ public class DepthFirstSearch {
     }
 
     /**
-     * Depth-first search algorithm.
+     * Depth-first search algorithm for non-directed graphs.
      */
     private void dfs(AdjacencyListIntGraph G, int v){
+        count++;
+        marked[v] = true;
+        for(int w : G.adj(v)){
+            if(!marked[w]){
+                edgeTo[w] = v;
+                dfs(G, w);
+            }
+        }
+    }
+
+    /**
+     * @post Build a new DepthFirstSearch object, in order to 
+     * apply depth-first search algorithm on the given digraph G, beginning at its node s.
+     */
+    public DepthFirstSearch(AdjacencyListIntDigraph G, int s){
+        this.G1 = G;
+        this.s = s;
+        isConnected = false;
+        edgeTo = new int[G.V()];
+        marked = new boolean[G.V()];
+        count = 0;
+        dfs(G, s);
+        if(count == G.V())
+            isConnected = true;
+    }
+
+    /**
+     * Depth-first search algorithm for digraphs.
+     */
+    private void dfs(AdjacencyListIntDigraph G, int v){
         count++;
         marked[v] = true;
         for(int w : G.adj(v)){
@@ -76,11 +107,15 @@ public class DepthFirstSearch {
     }
 
     public static void main(String[] args){
-        AdjacencyListIntGraph g = new AdjacencyListIntGraph(5);
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 3);
-        g.addEdge(2, 4);
+        AdjacencyListIntDigraph g = new AdjacencyListIntDigraph(6);
+        g.addEdge(0, 3);
+        g.addEdge(0, 5);
+        g.addEdge(1, 4);
+        g.addEdge(2, 0);
+        g.addEdge(2, 5);
+        g.addEdge(3, 1);
+        g.addEdge(4, 2);
+        g.addEdge(5, 4);
         System.out.println(g.toString());
         DepthFirstSearch d = new DepthFirstSearch(g, 0);
         System.out.println(d.isConnected());

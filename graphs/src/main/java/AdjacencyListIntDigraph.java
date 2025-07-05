@@ -55,7 +55,7 @@ public class AdjacencyListIntDigraph implements IntDigraph {
             for(int j = 0; j < adj[i].size(); j++){
                 s += "[" + adj[i].get(j).toString() + "] - ";
             }
-            s += "\n";
+            s += "//\n";
         }
         return s;
     }
