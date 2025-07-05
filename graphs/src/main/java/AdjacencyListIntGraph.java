@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class AdjacencyListIntGraph implements IntGraph {
     private final int V;
     private int E;
@@ -10,6 +11,7 @@ public class AdjacencyListIntGraph implements IntGraph {
      * @pre v >= 0
      * @post Initializes a graph with v vertices and 0 edges.
      */
+    @SuppressWarnings("unchecked")
     public AdjacencyListIntGraph(int V){
         if(V < 0) throw new IllegalArgumentException("v number must be greater or equal than zero.");
         this.V = V;
@@ -49,6 +51,7 @@ public class AdjacencyListIntGraph implements IntGraph {
         return adj[v];
     }
 
+    @Override
     public String toString(){
         String s = "";
         for(int i = 0; i < adj.length; i++){
@@ -56,25 +59,8 @@ public class AdjacencyListIntGraph implements IntGraph {
             for(int j = 0; j < adj[i].size(); j++){
                 s += "[" + adj[i].get(j).toString() + "] - ";
             }
-            s += "\n";
+            s += "//\n";
         }
         return s;
-    }
-
-    public static void main(String[] args){
-        AdjacencyListIntGraph g = new AdjacencyListIntGraph(6);
-        g.addEdge(0, 1);
-        g.addEdge(1, 2);
-        g.addEdge(2, 3);
-        g.addEdge(3, 4);
-        g.addEdge(4, 5);
-
-        System.out.println(g.toString());
-        System.out.println(g.adj(0).toString());
-        System.out.println(g.adj(1).toString());
-        System.out.println(g.adj(2).toString());
-        System.out.println(g.adj(3).toString());
-        System.out.println(g.adj(4).toString());
-        System.out.println(g.adj(5).toString());
     }
 }
