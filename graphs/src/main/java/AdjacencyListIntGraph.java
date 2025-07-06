@@ -38,8 +38,8 @@ public class AdjacencyListIntGraph implements IntGraph {
      */
     @Override
     public void addEdge(int v, int w) {
-        if(v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
-        if(w < 0 || w >= V) throw new IllegalArgumentException("vertex " + w + " is not between 0 and " + (V-1));
+        if(!isValidVertex(v)) throw new IllegalArgumentException("vertex" + v + "isn't between 0 and " + (V - 1));
+        if(!isValidVertex(w)) throw new IllegalArgumentException("vertex" + w + "isn't between 0 and " + (V - 1));
         adj[v].add(w);
         adj[w].add(v);
         E++;
@@ -47,7 +47,7 @@ public class AdjacencyListIntGraph implements IntGraph {
 
     @Override
     public List<Integer> adj(int v) {
-        if(v < 0 || v >= V) throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if(!isValidVertex(v)) throw new IllegalArgumentException("vertex" + v + "isn't between 0 and " + (V - 1));
         return adj[v];
     }
 
@@ -62,5 +62,13 @@ public class AdjacencyListIntGraph implements IntGraph {
             s += "//\n";
         }
         return s;
+    }
+
+    /**
+     * @post Return true if vertex v is a valid vertex
+     * (0 <= v < V).
+     */
+    private boolean isValidVertex(int v){
+        return v >= 0 && v > V();
     }
 }
