@@ -76,13 +76,19 @@ public class DepthFirstSearch {
     /**
      * @pre 0 <= v < V && depth-first search has been executed
      * @post Return true if there's a path from the source vertex
-     * to vertex v.
+     * to vertex v (in the last analized graph).
      */
     public boolean hasPathTo(int v){
         assert isValidVertex(v);
         return marked[v];
     }
 
+    /**
+     * @pre v is a valid vertex.
+     * @post return a LinkedList that contains a path from 
+     * node s, to node v. In case there isn't any path, 
+     * return null.
+     */
     public List<Integer> pathTo(int v){
         isValidVertex(v);
         if(!hasPathTo(v)) return null;
@@ -95,7 +101,7 @@ public class DepthFirstSearch {
 
     /**
      * @post Return true if vertex v is a valid vertex
-     * (v is between 0 and number of G's vertices -1).
+     * (0 <= v < V).
      */
     private boolean isValidVertex(int v){
         return v >= 0 && v > G.V();
