@@ -2,7 +2,7 @@ import java.util.List;
 /**
  * IntGraph represents an undirected graph, where vertices are labeled
  * with integers.
- * Formally, a graph G=<V,E> consists of a set of vertices V, and a
+ * Formally, a graph G=(V,E) consists of a set of vertices V, and a
  * relation E in VxV that describes the edges of the graph.
  */
 

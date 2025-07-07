@@ -77,4 +77,165 @@ public class AdjacencyListIntDigraph implements IntDigraph {
         System.out.println(g.adj(4).toString());
         System.out.println(g.adj(5).toString());
     }
+
+	/**
+     * Provide a depth-first search algorithm, and
+     * methods based on it, such as finding paths, 
+     * or determining whether a given graph is connected.
+     */
+    protected class DepthFirstSearch {
+        boolean[] marked;
+        int[] edgeTo;
+        int count;
+        AdjacencyListIntDigraph G;
+        int s; //Source vertex
+
+		/**
+		 * @post Build a new DepthFirstSearch object, in order to 
+		 * apply depth-first search algorithm on the given digraph G,
+		 * beginning at its node s.
+		 */
+		public DepthFirstSearch(AdjacencyListIntDigraph G, int s){
+			this.G = G;
+			this.s = s;
+			edgeTo = new int[G.V()];
+			marked = new boolean[G.V()];
+			count = 0;
+			dfs(G, s);
+		}
+
+		/**
+		 * Depth-first search algorithm.
+		 */
+		private void dfs(AdjacencyListIntDigraph G, int v){
+			count++;
+			marked[v] = true;
+			for(int w : G.adj(v)){
+				if(!marked[w]){
+					edgeTo[w] = v;
+					dfs(G, w);
+				}
+			}
+		}
+
+		/**
+		* @pre 0 <= v < V
+		* @post Return true if there's a path from vertex s
+     	* to vertex v (in the last analized graph).
+		*/
+		public boolean hasPathTo(int v){
+			if(!isValidVertex(v)) throw new IllegalArgumentException("vertex" + v + "isn't between 0 and " + (G.V-1));
+			return marked[v];
+		}
+
+		/**
+		 * @pre v is a valid vertex.
+		 * @post return a LinkedList that contains a path from 
+		 * node s, to node v (in last analized graph). 
+		 * In case there isn't any path, return null.
+		 */
+		public List<Integer> pathTo(int v){
+			isValidVertex(v);
+			if(!hasPathTo(v)) return null;
+			LinkedList<Integer> path = new LinkedList<>();
+			for(int w = v; w != s; w = edgeTo[w])
+				path.addFirst(w);
+			path.addFirst(s);
+			return path;
+		}
+
+		/**
+		 * @post Return true iff vertex v is between 0 
+		 * and G's number of vertices -1. 
+		 */
+		private boolean isValidVertex(int v){
+			return v >= 0 && v < G.V();
+		}
+
+		/**
+     	* @post Return true iff the last analized graph is a connected graph.
+     	*/
+		public boolean isConnected(){
+			return count == G.V();
+		}
+    }
+
+	/**
+     * Provide a depth-first search algorithm, and
+     * methods for finding shortest paths .
+     */
+	public class BreadthFirstSearch {
+		AdjacencyListIntDigraph G;
+		int s; //Source vertex.
+		int[] edgeTo;
+		boolean[] marked;
+
+		/**
+		 * @post Build a new BreadthFirstSearch object, in order to
+		 * apply breadth-first search algorithm to the given digraph G, 
+		 * beggining with node s.
+		 */
+		public BreadthFirstSearch(AdjacencyListIntDigraph G, int s){
+			this.G = G;
+			this.s = s;
+			edgeTo = new int[G.V()];
+			marked = new boolean[G.V()];
+			bfs(G, s);
+		}
+
+		/**
+		 * @pre 0 <= s < V
+		 * @post Breadth-first search algorithm.
+		 */
+		private void bfs(AdjacencyListIntDigraph G, int s){
+			if(!isValidVertex(s)) throw new IllegalArgumentException("vertex" + s + "isn't between 0 and " + (G.V()-1));
+			Queue<Integer> queue = new Queue<>();
+			marked[s] = true;
+			queue.enqueue(s);
+			while(!queue.isEmpty()){
+				int v = queue.dequeue();
+				for(int w : G.adj(v)){
+					if(!marked[w]){
+						marked[w] = true;
+						edgeTo[w] = v;
+						queue.enqueue(w);
+					}
+				}
+			}
+		}
+
+		/**
+		 * @post return whether a given vertex is
+		 * between 0 and graph's number of vertices -1.
+		 */
+		private boolean isValidVertex(int v){
+			return v >= 0 && v < G.V();
+		}
+
+		/**
+		 * @pre 0 <= v < V
+		 * @post return if there's a path from vertex s
+		 * to vertex v.
+		 */
+		public boolean hasPathTo(int v){
+			if(!isValidVertex(v)) throw new IllegalArgumentException("vertex" + v + "isn't between 0 and " + (G.V()-1));
+			return marked[v];
+		}
+
+		/**
+		 * @pre 0 <= v < V
+		 * @post return a LinkedList that contains
+		 * a path from vertex s to vertex v. If there
+		 * isn't any path, return null.
+		 */
+		public List<Integer> pathTo(int v){
+			if(!hasPathTo(v)) return null;
+			List<Integer> path = new LinkedList<>();
+			for(int w = v; w != s; w = edgeTo[w]){
+				path.addFirst(w);
+			}
+			path.addFirst(s);
+			return path;
+		}
+	}
 }
