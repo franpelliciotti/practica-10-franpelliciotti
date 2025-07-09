@@ -69,7 +69,7 @@ public class AdjacencyListIntGraph implements IntGraph {
      * (0 <= v < V).
      */
     private boolean isValidVertex(int v){
-        return v >= 0 && v > V();
+        return v >= 0 && v < V();
     }
 
     /**

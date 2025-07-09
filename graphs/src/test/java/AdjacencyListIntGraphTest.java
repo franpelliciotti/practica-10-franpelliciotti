@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import java.util.NoSuchElementException;
 
 public class AdjacencyListIntGraphTest {
     
@@ -29,5 +28,21 @@ public class AdjacencyListIntGraphTest {
         AdjacencyListIntGraph g = new AdjacencyListIntGraph(0);
         assertEquals("", g.toString());
         assertThrows(IllegalArgumentException.class, () -> g.addEdge(0, 1));
+    }
+
+    @Test
+    public void test3(){
+        AdjacencyListIntGraph g = new AdjacencyListIntGraph(5);
+        g.addEdge(0, 1);
+        g.addEdge(1, 2);
+        g.addEdge(1, 3);
+        g.addEdge(2, 4);
+        g.addEdge(2, 3);
+        g.addEdge(0, 3);
+        g.addEdge(0, 4);
+        BreadthFirstSearch<AdjacencyListIntGraph> b = new BreadthFirstSearch<>(g, 0);
+        for(int i = 1; i < g.V(); i++){
+            assertTrue(b.hasPathTo(i));
+        }
     }
 }   

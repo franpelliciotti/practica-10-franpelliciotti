@@ -19,7 +19,7 @@ public interface IntGraph {
 
     /**
      * @pre 0 <= v < V && 0 <= w < V
-     * @post Adds the undirected edge v-w to this graph.
+     * @post Add edge v-w to this graph.
      */
     public void addEdge(int v, int w);
 
