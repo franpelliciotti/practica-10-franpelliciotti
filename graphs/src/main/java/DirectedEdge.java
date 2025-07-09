@@ -1,4 +1,3 @@
-
 public class DirectedEdge {
     private final int from;
     private final int to;
@@ -9,6 +8,4 @@ public class DirectedEdge {
         this.to = to;
         this.weight = weight;
     }
-
-    
 }
