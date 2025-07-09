@@ -17,4 +17,6 @@ public class WeightListIntDigraph {
             adj[i] = new LinkedList<DirectedEdge>();
         }
     }
+
+    
 }
