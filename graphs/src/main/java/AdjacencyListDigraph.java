@@ -2,14 +2,14 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class AdjacencyListGraph<T extends Comparable<? super T>> implements Graph<T> {
+public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Graph<T> {
     private int V;
     private int E;
     private TreeMap<T, Integer> map;
     private T[] keys;
     private List<Integer>[] adj;
 
-    public AdjacencyListGraph(int V){
+    public AdjacencyListDigraph(int V){
         if(V < 0)
             throw new IllegalArgumentException("Number of vertices must be non-negative.");
         this.V = 0;
@@ -70,7 +70,6 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         int vid = indexOf(v);
         int wid = indexOf(w);
         adj[vid].add(wid);
-        adj[wid].add(vid);
     }
     
     private void resize(int l){
@@ -96,3 +95,4 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         return s;
     }
 }
+

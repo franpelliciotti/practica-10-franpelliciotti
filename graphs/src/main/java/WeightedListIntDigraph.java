@@ -1,17 +1,21 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class WeightedMatrixIntDigraph {
+public class WeightedListIntDigraph {
     private final int V;
     private int E;
-    private DirectedEdge[][] adj;
+    private List<DirectedEdge>[] adj;
 
-    public WeightedMatrixIntDigraph(int V){
+    @SuppressWarnings("unchecked")
+    public WeightedListIntDigraph(int V){
         if(V < 0)
             throw new IllegalArgumentException("V must be non-negative");
         this. V = V;
-        this.E = 0;
-        adj = new DirectedEdge[V][V];
+        E = 0;
+        adj = new LinkedList[V];
+        for(int i = 0; i < V; i++){
+            adj[i] = new LinkedList<DirectedEdge>();
+        }
     }
 
     /**
@@ -24,7 +28,7 @@ public class WeightedMatrixIntDigraph {
             throw new IllegalArgumentException("vertex " + e.from + " is not between 0 and " + (V-1));
         if(e.to < 0 || e.to >= V)
             throw new IllegalArgumentException("vertex " + e.to + " is not between 0 and " + (V-1));
-        adj[e.from][e.to] = e;
+        adj[e.from].add(e);
         E++;
     }
 
@@ -35,11 +39,6 @@ public class WeightedMatrixIntDigraph {
     public List<DirectedEdge> adj(int v) {
         if (v < 0 || v >= V)
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
-        List<DirectedEdge> adjList = new LinkedList<>();
-        for(int i = 0; i < adj.length; i++){
-            if((adj[v][i]) != null)
-                adjList.add(adj[v][i]);
-        }
-        return adjList;
+        return adj[v];
     }
 }

@@ -2,14 +2,14 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class AdjacencyListGraph<T extends Comparable<? super T>> implements Graph<T> {
+public class WeightedListDigraph<T extends Comparable<? super T>> {
     private int V;
     private int E;
     private TreeMap<T, Integer> map;
     private T[] keys;
-    private List<Integer>[] adj;
+    private List<DirectedEdge>[] adj;
 
-    public AdjacencyListGraph(int V){
+    public WeightedListDigraph(int V){
         if(V < 0)
             throw new IllegalArgumentException("Number of vertices must be non-negative.");
         this.V = 0;
@@ -19,12 +19,10 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         keys = (T[]) new Comparable[V];
     }
 
-    @Override
     public int V() {
         return V;
     }
 
-    @Override
     public int E() {
         return E;
     }
@@ -43,7 +41,6 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         return map.get(v);
     }
 
-    @Override
     public void addVertex(T v) {
         if(containsVertex(v))
             throw new IllegalArgumentException("Vertex already in the graph");
@@ -55,27 +52,25 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         keys[newV] = v;
     }
 
-    @Override
     public boolean containsVertex(T v) {
         return map.containsKey(v);
     }
 
-    @Override
-    public void addEdge(T v, T w) {
+    public void addEdge(T v, T w, double weight) {
         if(!containsVertex(v))
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
         if(!containsVertex(w))
             throw new IllegalArgumentException("vertex " + w + " is not between 0 and " + (V-1));
+        DirectedEdge e = new DirectedEdge(indexOf(v), indexOf(w), weight);
         E++;
         int vid = indexOf(v);
         int wid = indexOf(w);
-        adj[vid].add(wid);
-        adj[wid].add(vid);
+        adj[vid].add(e);
     }
     
     private void resize(int l){
         T[] auxT = (T[]) new Comparable[l];
-        List<Integer>[] auxInt = new LinkedList[l];
+        List<DirectedEdge>[] auxInt = new LinkedList[l];
         for(int i = 0; i < auxT.length; i++){
             auxT[i] = keys[i];
             auxInt[i] = adj[i];
@@ -88,8 +83,8 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         String s = "";
         for(int i = 0; i < V; i++){
             s += nameOf(i) + ": ";
-            for(int v : adj[i]){
-                s += "[" + nameOf(v) + "] - ";
+            for(DirectedEdge v : adj[i]){
+                s += "[" + v.toString() + "] - ";
             }
             s += "\n";
         }

@@ -1,20 +1,19 @@
-import java.util.List;
-import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class AdjacencyListGraph<T extends Comparable<? super T>> implements Graph<T> {
+public class AdjacencyMatrixDigraph<T extends Comparable<? super T>> implements Graph<T> {
+    
     private int V;
     private int E;
     private TreeMap<T, Integer> map;
     private T[] keys;
-    private List<Integer>[] adj;
+    private int[][] adj;
 
-    public AdjacencyListGraph(int V){
+    public AdjacencyMatrixDigraph(int V){
         if(V < 0)
             throw new IllegalArgumentException("Number of vertices must be non-negative.");
         this.V = 0;
         this.E = 0;
-        adj = new LinkedList[V];
+        adj = new int[V][V];
         map = new TreeMap<>();
         keys = (T[]) new Comparable[V];
     }
@@ -51,7 +50,6 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         if(V >= keys.length)
             resize(adj.length*2);
         map.put(v, newV);
-        adj[newV] = new LinkedList<>();
         keys[newV] = v;
     }
 
@@ -69,30 +67,28 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         E++;
         int vid = indexOf(v);
         int wid = indexOf(w);
-        adj[vid].add(wid);
-        adj[wid].add(vid);
+        adj[vid][wid] = 1;
     }
     
     private void resize(int l){
-        T[] auxT = (T[]) new Comparable[l];
-        List<Integer>[] auxInt = new LinkedList[l];
-        for(int i = 0; i < auxT.length; i++){
-            auxT[i] = keys[i];
-            auxInt[i] = adj[i];
+        int[][] aux = new int[l][l];
+        for(int i = 0; i < aux.length; i++){
+            for(int j = 0; j < aux.length; j++){
+                aux[i][j] = adj[i][j];
+            }
         }
-        keys = auxT;
-        adj = auxInt;
+        adj = aux;
     }
 
     public String toString(){
         String s = "";
-        for(int i = 0; i < V; i++){
-            s += nameOf(i) + ": ";
-            for(int v : adj[i]){
-                s += "[" + nameOf(v) + "] - ";
+        for(int i = 0; i < adj.length; i++){
+            for(int j = 0; j < adj[i].length; j++){
+                s += adj[i][j] + " ";
             }
             s += "\n";
         }
         return s;
     }
 }
+
