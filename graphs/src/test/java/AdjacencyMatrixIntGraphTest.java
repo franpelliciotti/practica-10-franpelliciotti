@@ -37,7 +37,7 @@ public class AdjacencyMatrixIntGraphTest {
         g.addEdge(0, 3);
         g.addEdge(0, 4);
         BreadthFirstSearch<AdjacencyMatrixIntGraph> b = new BreadthFirstSearch<>(g, 0);       
-        DepthFirstSearch<AdjacencyMatrixIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyMatrixIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         for(int i = 1; i < g.V(); i++){
             assertTrue(b.hasPathTo(i));
         }
@@ -60,7 +60,7 @@ public class AdjacencyMatrixIntGraphTest {
         g.addEdge(1, 3);
         g.addEdge(2, 3);
         BreadthFirstSearch<AdjacencyMatrixIntGraph> b = new BreadthFirstSearch<>(g, 0);
-        DepthFirstSearch<AdjacencyMatrixIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyMatrixIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         assertFalse(b.hasPathTo(4));
         assertFalse(d.hasPathTo(4));
         assertFalse(d.isConnected());
@@ -82,7 +82,7 @@ public class AdjacencyMatrixIntGraphTest {
         g.addEdge(1, 2);
         g.addEdge(1, 3);
         BreadthFirstSearch<AdjacencyMatrixIntGraph> b = new BreadthFirstSearch<>(g, 0);
-        DepthFirstSearch<AdjacencyMatrixIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyMatrixIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         assertTrue(d.isConnected());
         for(int i = 1; i < g.V(); i++){
             assertTrue(b.hasPathTo(i));

@@ -41,7 +41,7 @@ public class AdjacencyListIntGraphTest {
         g.addEdge(0, 3);
         g.addEdge(0, 4);
         BreadthFirstSearch<AdjacencyListIntGraph> b = new BreadthFirstSearch<>(g, 0);       
-        DepthFirstSearch<AdjacencyListIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyListIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         for(int i = 1; i < g.V(); i++){
             assertTrue(b.hasPathTo(i));
         }
@@ -64,7 +64,7 @@ public class AdjacencyListIntGraphTest {
         g.addEdge(1, 3);
         g.addEdge(2, 3);
         BreadthFirstSearch<AdjacencyListIntGraph> b = new BreadthFirstSearch<>(g, 0);
-        DepthFirstSearch<AdjacencyListIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyListIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         assertFalse(b.hasPathTo(4));
         assertFalse(d.hasPathTo(4));
         assertFalse(d.isConnected());
@@ -86,7 +86,7 @@ public class AdjacencyListIntGraphTest {
         g.addEdge(1, 2);
         g.addEdge(1, 3);
         BreadthFirstSearch<AdjacencyListIntGraph> b = new BreadthFirstSearch<>(g, 0);
-        DepthFirstSearch<AdjacencyListIntGraph> d = new DepthFirstSearch<>(g, 0);
+        DepthFirstSearchIntGraph<AdjacencyListIntGraph> d = new DepthFirstSearchIntGraph<>(g, 0);
         assertTrue(d.isConnected());
         for(int i = 1; i < g.V(); i++){
             assertTrue(b.hasPathTo(i));

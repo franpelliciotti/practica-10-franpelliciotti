@@ -1,6 +1,6 @@
 import java.util.TreeMap;
 
-public class AdjacencyMatrixDigraph<T extends Comparable<? super T>> implements Graph<T> {
+public class AdjacencyMatrixDigraph<T extends Comparable<? super T>> implements Digraph<T> {
     
     private int V;
     private int E;

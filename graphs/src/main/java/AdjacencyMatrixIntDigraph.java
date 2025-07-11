@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdjacencyMatrixIntDigraph implements IntGraph {
+public class AdjacencyMatrixIntDigraph implements IntGraph, IntDigraph {
     private final int V;
     private int E;
     private int[][] adj;

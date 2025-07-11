@@ -3,6 +3,7 @@ import java.util.List;
 
 public class WeightedListIntDigraph {
     private final int V;
+    @SuppressWarnings("unused")
     private int E;
     private List<DirectedEdge>[] adj;
 

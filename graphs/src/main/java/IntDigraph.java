@@ -1,12 +1,12 @@
 import java.util.List;
 /**
- * IntGraph represents an undirected graph, where vertices are labeled
+ * IntGraph represents a directed graph, where vertices are labeled
  * with integers.
  * Formally, a graph G=(V,E) consists of a set of vertices V, and a
  * relation E in VxV that describes the edges of the graph.
  */
 
-public interface IntGraph {
+public interface IntDigraph {
     /**
      * @post The number of vertices in this graph.
      */
@@ -19,12 +19,11 @@ public interface IntGraph {
 
     /**
      * @pre 0 <= v < V && 0 <= w < V
-     * @post Add the undirected edge v-w to this graph.
+     * @post Adds the directed edge v-w to this graph.
      */
     public void addEdge(int v, int w);
 
     /**
-     * 
      * @pre 0 <= v < V
      * @post Returns the list of vertices adjacent to vertex v
      */

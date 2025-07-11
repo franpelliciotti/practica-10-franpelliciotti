@@ -47,12 +47,13 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
     public void addVertex(T v) {
         if(containsVertex(v))
             throw new IllegalArgumentException("Vertex already in the graph");
-        int newV = V++;
+        int vid = V++;
         if(V >= keys.length)
-            resize(adj.length*2);
-        map.put(v, newV);
-        adj[newV] = new LinkedList<>();
-        keys[newV] = v;
+            //resize(adj.length*2);
+            throw new IllegalStateException("There's no more space for any other vertex");
+        map.put(v, vid);
+        adj[vid] = new LinkedList<>();
+        keys[vid] = v;
     }
 
     @Override
@@ -73,17 +74,6 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         adj[wid].add(vid);
     }
     
-    private void resize(int l){
-        T[] auxT = (T[]) new Comparable[l];
-        List<Integer>[] auxInt = new LinkedList[l];
-        for(int i = 0; i < auxT.length; i++){
-            auxT[i] = keys[i];
-            auxInt[i] = adj[i];
-        }
-        keys = auxT;
-        adj = auxInt;
-    }
-
     public String toString(){
         String s = "";
         for(int i = 0; i < V; i++){
@@ -95,4 +85,17 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         }
         return s;
     }
+
+    /*
+     * private void resize(int l){
+        T[] auxT = (T[]) new Comparable[l];
+        List<Integer>[] auxInt = new LinkedList[l];
+        for(int i = 0; i < auxT.length; i++){
+            auxT[i] = keys[i];
+            auxInt[i] = adj[i];
+        }
+        keys = auxT;
+        adj = auxInt;
+    }
+     */
 }

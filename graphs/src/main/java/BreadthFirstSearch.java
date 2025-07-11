@@ -21,7 +21,7 @@ public class BreadthFirstSearch<T extends IntGraph> {
     }
 
     /**
-     {* @pre 0 <= s < G.V().
+     * @pre 0 <= s < G.V().
      * Breadth-first search algorithm.
      */
     private void bfs(T G, int s){

@@ -46,7 +46,8 @@ public class WeightedListDigraph<T extends Comparable<? super T>> {
             throw new IllegalArgumentException("Vertex already in the graph");
         int newV = V++;
         if(V >= keys.length)
-            resize(adj.length*2);
+            //resize(adj.length*2);
+            throw new IllegalStateException("There's no more space for any other vertex");
         map.put(v, newV);
         adj[newV] = new LinkedList<>();
         keys[newV] = v;
@@ -64,11 +65,10 @@ public class WeightedListDigraph<T extends Comparable<? super T>> {
         DirectedEdge e = new DirectedEdge(indexOf(v), indexOf(w), weight);
         E++;
         int vid = indexOf(v);
-        int wid = indexOf(w);
         adj[vid].add(e);
     }
     
-    private void resize(int l){
+    /*private void resize(int l){
         T[] auxT = (T[]) new Comparable[l];
         List<DirectedEdge>[] auxInt = new LinkedList[l];
         for(int i = 0; i < auxT.length; i++){
@@ -77,7 +77,7 @@ public class WeightedListDigraph<T extends Comparable<? super T>> {
         }
         keys = auxT;
         adj = auxInt;
-    }
+    } */
 
     public String toString(){
         String s = "";

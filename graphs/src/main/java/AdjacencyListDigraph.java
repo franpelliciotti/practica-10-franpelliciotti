@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Graph<T> {
+public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Digraph<T> {
     private int V;
     private int E;
     private TreeMap<T, Integer> map;
