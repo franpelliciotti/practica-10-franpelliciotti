@@ -42,4 +42,37 @@ public class WeightedMatrixIntDigraph {
         }
         return adjList;
     }
+
+    public String toString(){
+        String s = "";
+        for(int i = 0; i < adj.length; i++){
+            for(int j = 0; j < adj[i].length; j++){
+                if(adj[i][j] != null)
+                    s += adj[i][j].weight + "  ";
+                else
+                    s += adj[i][j] + "  ";
+            }
+            s += "\n";
+        }
+        return s;
+    }
+
+    public static void main(String[] args){
+        WeightedMatrixIntDigraph g = new WeightedMatrixIntDigraph(5);
+        DirectedEdge e1 = new DirectedEdge(0, 1, 2.0);
+        DirectedEdge e2 = new DirectedEdge(1, 2, 1.5);
+        DirectedEdge e3 = new DirectedEdge(1, 3, 0.3);
+        DirectedEdge e4 = new DirectedEdge(0, 3, 7.1);
+        DirectedEdge e5 = new DirectedEdge(3, 0, 4.2);
+        DirectedEdge e6 = new DirectedEdge(3, 2, 8.0);
+        DirectedEdge e7 = new DirectedEdge(4, 2, 3.7);
+        g.addEdge(e1);
+        g.addEdge(e2);
+        g.addEdge(e3);
+        g.addEdge(e4);
+        g.addEdge(e5);
+        g.addEdge(e6);
+        g.addEdge(e7);
+        System.out.println(g.toString());
+    }
 }

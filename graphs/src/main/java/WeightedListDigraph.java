@@ -44,28 +44,26 @@ public class WeightedListDigraph<T extends Comparable<? super T>> {
     public void addVertex(T v) {
         if(containsVertex(v))
             throw new IllegalArgumentException("Vertex already in the graph");
-        int newV = V++;
+        int vid = V++;
         if(V >= keys.length)
             //resize(adj.length*2);
             throw new IllegalStateException("There's no more space for any other vertex");
-        map.put(v, newV);
-        adj[newV] = new LinkedList<>();
-        keys[newV] = v;
+        map.put(v, vid);
+        adj[vid] = new LinkedList<>();
+        keys[vid] = v;
     }
 
     public boolean containsVertex(T v) {
         return map.containsKey(v);
     }
 
-    public void addEdge(T v, T w, double weight) {
-        if(!containsVertex(v))
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
-        if(!containsVertex(w))
-            throw new IllegalArgumentException("vertex " + w + " is not between 0 and " + (V-1));
-        DirectedEdge e = new DirectedEdge(indexOf(v), indexOf(w), weight);
+    public void addEdge(DirectedEdge e) {
+        if(e.from < 0 || e.from >= V)
+            throw new IllegalArgumentException("vertex " + e.from + " is not between 0 and " + (V-1));
+        if(e.to < 0 || e.to >= V)
+            throw new IllegalArgumentException("vertex " + e.to + " is not between 0 and " + (V-1));
         E++;
-        int vid = indexOf(v);
-        adj[vid].add(e);
+        adj[e.from].add(e);
     }
     
     /*private void resize(int l){

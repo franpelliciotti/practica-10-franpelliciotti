@@ -42,4 +42,16 @@ public class WeightedListIntDigraph {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
         return adj[v];
     }
+
+    public String toString(){
+        String s = "";
+        for(int i = 0; i < V; i++){
+            s += i + ": ";
+            for(DirectedEdge v : adj[i]){
+                s += "[" + v.toString() + "] - ";
+            }
+            s += "\n";
+        }
+        return s;
+    }
 }

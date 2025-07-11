@@ -54,7 +54,7 @@ public class AdjacencyMatrixIntGraph implements IntGraph {
                 s += adj[i][j] + " ";
             }
             s += "\n";
-        }
+        }   
         return s;
     }
 
