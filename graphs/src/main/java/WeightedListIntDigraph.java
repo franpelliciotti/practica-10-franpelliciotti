@@ -19,6 +19,14 @@ public class WeightedListIntDigraph {
         }
     }
 
+    public int V(){
+        return V;
+    }
+
+    public int E(){
+        return E;
+    }
+
     /**
     * @pre 0 <= e.from < V && 0 <= e.to < V
     * @post Adds the directed edge e (e.from->e.weight->e.to)
@@ -53,5 +61,18 @@ public class WeightedListIntDigraph {
             s += "\n";
         }
         return s;
+    }
+
+    public static void main(String[] args){
+        WeightedListIntDigraph g = new WeightedListIntDigraph(3);
+        DirectedEdge e1 = new DirectedEdge(0, 1, 2);
+        g.addEdge(e1);
+        System.out.println(g.toString());
+        DirectedEdge e2 = new DirectedEdge(1, 2, 3);
+        g.addEdge(e2);
+        System.out.println(g.toString());
+        DirectedEdge e3 = new DirectedEdge(2, 1, -6);
+        g.addEdge(e3);
+        System.out.println(g.toString());
     }
 }
