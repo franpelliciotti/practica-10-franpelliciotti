@@ -1,7 +1,11 @@
+import java.util.List;
+import java.util.LinkedList;
+
 public class BellmanFord {
-        double[] distTo;
+    double[] distTo;
     DirectedEdge[] edgeTo;
-    IndexMinPQ<Double> pq;
+    WeightedListIntDigraph G;
+    int s;
 
     public BellmanFord(WeightedListIntDigraph G, int s){
         if(s < 0 || s >= G.V())
@@ -9,19 +13,18 @@ public class BellmanFord {
         
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
-        pq = new IndexMinPQ<>(G.V());
+        this.G = G;
+        this.s = s;
+
         for(int v = 0; v < G.V(); v++){
             if(v != s){
                 distTo[v] = Double.POSITIVE_INFINITY;
-                pq.insert(v, distTo[v]);
             }
         }
         distTo[s] = 0.0;
-        pq.insert(s, distTo[s]);
 
-        while(!pq.isEmpty()){
-            int v = pq.delMin();
-            for(DirectedEdge e: G.adj(v))
+        for(int i = 0; i < G.V(); i++){
+            for(DirectedEdge e: G.adj(i))
                 relax(e);
         }
     }
@@ -32,7 +35,15 @@ public class BellmanFord {
         if(distTo[w] > distTo[v] + e.weight){
             distTo[w] = distTo[v] + e.weight;
             edgeTo[w] = e;
-            pq.decreaseKey(w, distTo[w]);
         }
     }
+
+    public String pathTo(int v){
+        if(v < 0 || v >= G.V())
+            throw new IllegalArgumentException("vertex " + v + " isn't between 0 and " + (G.V()-1));
+        String s = "";
+
+        return s;
+    }
+ 
 }
