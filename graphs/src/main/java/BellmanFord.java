@@ -5,7 +5,6 @@ public class BellmanFord {
     double[] distTo;
     DirectedEdge[] edgeTo;
     WeightedListIntDigraph G;
-    int s;
 
     public BellmanFord(WeightedListIntDigraph G, int s){
         if(s < 0 || s >= G.V())
@@ -14,7 +13,6 @@ public class BellmanFord {
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
         this.G = G;
-        this.s = s;
 
         for(int v = 0; v < G.V(); v++){
             if(v != s){
@@ -60,7 +58,7 @@ public class BellmanFord {
         g1.addEdge(ed3);
         g1.addEdge(ed4);
         BellmanFord b1 = new BellmanFord(g1, 0);
-        
+
         WeightedListIntDigraph g = new WeightedListIntDigraph(4);
         DirectedEdge e1 = new DirectedEdge(0, 1, 3);
         DirectedEdge e2 = new DirectedEdge(0, 2, 5);
