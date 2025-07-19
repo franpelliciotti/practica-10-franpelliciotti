@@ -56,4 +56,36 @@ public class Prim {
             weight += e.weight;
         return weight;
     }
+
+    @Override
+    public String toString(){
+        String s = "Minimum Spanning Tree:\n";
+        List<UndirectedEdge> mst = edges();
+        s += mst.toString() + "\nWeight: " + weight();
+        return s;
+    }
+
+    public static void main(String[] args){
+        WeightedListIntGraph g = new WeightedListIntGraph(8);
+        UndirectedEdge e1 = new UndirectedEdge(0, 4, 9);
+        UndirectedEdge e2 = new UndirectedEdge(4, 2, 7);
+        UndirectedEdge e3 = new UndirectedEdge(2, 1, 2);
+        UndirectedEdge e4 = new UndirectedEdge(1, 3, 6);
+        UndirectedEdge e5 = new UndirectedEdge(3, 5, 5);
+        UndirectedEdge e6 = new UndirectedEdge(5, 7, 9);
+        UndirectedEdge e7 = new UndirectedEdge(7, 6, 4);
+        UndirectedEdge e8 = new UndirectedEdge(6, 2, 2);
+        UndirectedEdge e9 = new UndirectedEdge(2, 5, 6);
+        g.addEdge(e1);
+        g.addEdge(e2);
+        g.addEdge(e3);
+        g.addEdge(e4);
+        g.addEdge(e5);
+        g.addEdge(e6);
+        g.addEdge(e7);
+        g.addEdge(e8);
+        g.addEdge(e9);
+        Prim p = new Prim(g, 0);
+        System.out.println(p.toString());
+    }
 }

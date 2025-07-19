@@ -10,10 +10,10 @@ public class UndirectedEdge {
     }
 
     public int other(int vertex){
-        if(vertex != v || vertex != w)
-            throw new IllegalArgumentException("vertex must be either " + v + " or " + w);
         if(vertex == v) return w;
-        return v;
+        else if(vertex == w) return v;
+        else 
+            throw new IllegalArgumentException("vertex must be either " + v + " or " + w);
     }
 
     @Override
