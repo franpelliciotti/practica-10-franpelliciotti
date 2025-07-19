@@ -21,4 +21,9 @@ public class UndirectedEdge {
         String s = "|" + this.v + " | " + this.w + " | " + this.weight + "|";
         return s;
     }
+
+    public boolean equals(UndirectedEdge e){
+        return this == e || ((this.v == e.w) && (this.w == e.v) && (this.weight == e.weight));
+    }
+
 }
