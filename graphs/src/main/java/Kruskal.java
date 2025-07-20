@@ -3,11 +3,11 @@ import java.util.LinkedList;
 import java.util.Arrays;
 
 public class Kruskal {
-    UF set;
-    WeightedListIntGraph G;
-    UndirectedEdge[] edges;
-    double weight;
-    List<UndirectedEdge> mst;
+    private UF set;
+    private WeightedListIntGraph G;
+    private UndirectedEdge[] edges;
+    private double weight;
+    private List<UndirectedEdge> mst;
 
     public Kruskal(WeightedListIntGraph G){
         set = new UF(G.V());

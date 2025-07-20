@@ -1,4 +1,4 @@
-public class UndirectedEdge {
+public class UndirectedEdge implements Comparable<UndirectedEdge>{
     protected final int v;
     protected final int w;
     protected final double weight;
@@ -26,4 +26,10 @@ public class UndirectedEdge {
         return this == e || ((this.v == e.w) && (this.w == e.v) && (this.weight == e.weight));
     }
 
+    @Override
+    public int compareTo(UndirectedEdge o) {
+        if(this.weight < o.weight) return -1;
+        else if(this.weight > o.weight) return 1;
+        return 0;
+    }
 }
