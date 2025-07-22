@@ -90,6 +90,11 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         return adj[v];
     }
 
+    public boolean isConnected(){
+        DepthFirstSearchGraph<AdjacencyListGraph<T>> d = new DepthFirstSearchGraph<AdjacencyListGraph<T>>(this, 0);
+        return d.count == this.V;
+    }
+
     /*
      * private void resize(int l){
         T[] auxT = (T[]) new Comparable[l];

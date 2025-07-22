@@ -46,10 +46,11 @@ public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Di
     @Override
     public void addVertex(T v) {
         if(containsVertex(v))
-            throw new IllegalArgumentException("Vertex already in the graph");
+            throw new IllegalArgumentException("Vertex "+ v.toString() +" already in the graph");
         int newV = V++;
         if(V >= keys.length)
-            resize(adj.length*2);
+            //resize(adj.length*2);
+            throw new IllegalStateException("There's no more space for anymore nodes");
         map.put(v, newV);
         adj[newV] = new LinkedList<>();
         keys[newV] = v;
@@ -72,7 +73,8 @@ public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Di
         adj[vid].add(wid);
     }
     
-    private void resize(int l){
+    /*
+     * private void resize(int l){
         T[] auxT = (T[]) new Comparable[l];
         List<Integer>[] auxInt = new LinkedList[l];
         for(int i = 0; i < auxT.length; i++){
@@ -82,6 +84,7 @@ public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Di
         keys = auxT;
         adj = auxInt;
     }
+     */
 
     public String toString(){
         String s = "";
@@ -98,6 +101,15 @@ public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Di
     @Override
     public List<Integer> adj(int v) {
         return adj[v];
+    }
+
+    public boolean isConnected(){
+        for(int i = 0; i < V; i++){
+            DepthFirstSearchDigraph<AdjacencyListDigraph<T>> d = new DepthFirstSearchDigraph<AdjacencyListDigraph<T>>(this, i);
+            if(!d.isSourceConnected())
+                return false;
+        }
+        return true;
     }
 }
 

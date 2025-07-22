@@ -3,7 +3,6 @@ import java.util.List;
 
 public class WeightedListIntDigraph {
     private final int V;
-    @SuppressWarnings("unused")
     private int E;
     private List<DirectedEdge>[] adj;
 
@@ -63,6 +62,11 @@ public class WeightedListIntDigraph {
         return s;
     }
 
+    public boolean hasNegativeCycle(){
+        BellmanFord b = new BellmanFord(this, 0);
+        return !b.valid;
+    }
+
     public static void main(String[] args){
         WeightedListIntDigraph g = new WeightedListIntDigraph(3);
         DirectedEdge e1 = new DirectedEdge(0, 1, 2);
@@ -74,5 +78,6 @@ public class WeightedListIntDigraph {
         DirectedEdge e3 = new DirectedEdge(2, 1, -6);
         g.addEdge(e3);
         System.out.println(g.toString());
+        System.out.println(g.hasNegativeCycle());
     }
 }

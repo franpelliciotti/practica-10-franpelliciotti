@@ -5,6 +5,7 @@ public class BellmanFord {
     double[] distTo;
     DirectedEdge[] edgeTo;
     WeightedListIntDigraph G;
+    boolean valid;
 
     public BellmanFord(WeightedListIntDigraph G, int s){
         if(s < 0 || s >= G.V())
@@ -21,6 +22,10 @@ public class BellmanFord {
         }
         distTo[s] = 0.0;
 
+        valid = bellmanFord();
+    }
+
+    private boolean bellmanFord(){
         for(int i = 1; i < G.V(); i++){
             for(int v = 0; v < G.V(); v++){
                 for(DirectedEdge e: G.adj(v))
@@ -33,9 +38,10 @@ public class BellmanFord {
                 int v = e.from;
                 int w = e.to;
                 if(distTo[w] > distTo[v] + e.weight)
-                    throw new IllegalStateException("There's a negative cycle in this graph.");
+                    return false;
             }   
         }
+        return true;
     }
 
     private void relax(DirectedEdge e){
@@ -58,6 +64,7 @@ public class BellmanFord {
         g1.addEdge(ed3);
         g1.addEdge(ed4);
         BellmanFord b1 = new BellmanFord(g1, 0);
+        System.out.println(b1.valid);
 
         WeightedListIntDigraph g = new WeightedListIntDigraph(4);
         DirectedEdge e1 = new DirectedEdge(0, 1, 3);
@@ -69,5 +76,6 @@ public class BellmanFord {
         g.addEdge(e3);
         g.addEdge(e4);
         BellmanFord b = new BellmanFord(g, 0);
+        System.out.println(b.valid);
     }
 }
