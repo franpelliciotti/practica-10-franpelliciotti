@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface Graph<T extends Comparable<? super T>> {
     public int V();
 
@@ -8,4 +10,6 @@ public interface Graph<T extends Comparable<? super T>> {
     public boolean containsVertex(T v);
 
     public void addEdge(T v, T w);
+
+    public List<Integer> adj(int v);
 }

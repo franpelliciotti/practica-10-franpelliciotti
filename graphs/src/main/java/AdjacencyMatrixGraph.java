@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class AdjacencyMatrixGraph<T extends Comparable<? super T>> implements Graph<T> {
@@ -47,8 +49,8 @@ public class AdjacencyMatrixGraph<T extends Comparable<? super T>> implements Gr
         if(containsVertex(v))
             throw new IllegalArgumentException("Vertex already in the graph");
         int newV = V++;
-        if(V >= keys.length)
-            resize(adj.length*2);
+        //if(V >= keys.length)
+            //resize(adj.length*2);
         map.put(v, newV);
         keys[newV] = v;
     }
@@ -70,7 +72,7 @@ public class AdjacencyMatrixGraph<T extends Comparable<? super T>> implements Gr
         adj[vid][wid] = adj[wid][vid] = 1;
     }
     
-    private void resize(int l){
+    /*private void resize(int l){
         int[][] aux = new int[l][l];
         for(int i = 0; i < aux.length; i++){
             for(int j = 0; j < aux.length; j++){
@@ -78,7 +80,7 @@ public class AdjacencyMatrixGraph<T extends Comparable<? super T>> implements Gr
             }
         }
         adj = aux;
-    }
+    } */
 
     public String toString(){
         String s = "";
@@ -89,5 +91,38 @@ public class AdjacencyMatrixGraph<T extends Comparable<? super T>> implements Gr
             s += "\n";
         }
         return s;
+    }
+
+    @Override
+    public List<Integer> adj(int v) {
+        List<Integer> adjacent = new LinkedList<>();
+        for(int i = 0; i < adj.length; i++){
+            if(adj[v][i] == 1){
+                adjacent.add(i);
+            }
+        }
+        return adjacent;
+    }
+
+    public static void main(String[] args){
+        AdjacencyMatrixGraph<String> g = new AdjacencyMatrixGraph<>(5);
+        g.addVertex("Rio IV");
+        g.addVertex("Higueras");
+        g.addVertex("Holmberg");
+        g.addVertex("Sampacho");
+        g.addVertex("Baigorria");
+        g.addEdge("Rio IV", "Holmberg");
+        g.addEdge("Rio IV", "Higueras");
+        g.addEdge("Holmberg", "Sampacho");
+        g.addEdge("Higueras", "Baigorria");
+        System.out.println(g.toString());
+        System.out.println();
+        for(int i = 0; i < g.V(); i++){
+            System.out.print(g.nameOf(i) + "'s adjacents: ");
+            for(int j : g.adj(i)){
+                System.out.print(g.nameOf(j) + " - ");
+            }
+            System.out.println();
+        }
     }
 }

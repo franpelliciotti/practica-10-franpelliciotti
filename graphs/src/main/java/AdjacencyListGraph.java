@@ -86,6 +86,10 @@ public class AdjacencyListGraph<T extends Comparable<? super T>> implements Grap
         return s;
     }
 
+    public List<Integer> adj(int v){
+        return adj[v];
+    }
+
     /*
      * private void resize(int l){
         T[] auxT = (T[]) new Comparable[l];

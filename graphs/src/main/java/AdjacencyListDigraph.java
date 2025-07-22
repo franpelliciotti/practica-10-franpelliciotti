@@ -94,5 +94,10 @@ public class AdjacencyListDigraph<T extends Comparable<? super T>> implements Di
         }
         return s;
     }
+
+    @Override
+    public List<Integer> adj(int v) {
+        return adj[v];
+    }
 }
 

@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class DepthFirstSearch<T extends IntGraph> {
+public class DepthFirstSearchDigraph<T extends Digraph<?>> {
     T G;
     int s; //Source node
     int[] edgeTo;
@@ -13,7 +13,7 @@ public class DepthFirstSearch<T extends IntGraph> {
      * apply depth-first search algorithm on the given graph G,
      * beginning at its node s.
      */
-    public DepthFirstSearch(T G, int s){
+    public DepthFirstSearchDigraph(T G, int s){
         this.G = G;
         this.s = s;
         edgeTo = new int[G.V()];
@@ -71,9 +71,9 @@ public class DepthFirstSearch<T extends IntGraph> {
     }
 
     /**
-    * @post Return true iff the last analized graph is a connected graph.
+    * @post Return true iff the source vertex is connected with the rest of vertices.
     */
-    public boolean isConnected(){
+    public boolean isSourceConnected(){
         return count == G.V();
     }
 }
