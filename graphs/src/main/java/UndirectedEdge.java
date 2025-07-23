@@ -23,7 +23,8 @@ public class UndirectedEdge implements Comparable<UndirectedEdge>{
     }
 
     public boolean equals(UndirectedEdge e){
-        return this == e || ((this.v == e.w) && (this.w == e.v) && (this.weight == e.weight));
+        if(this == e) return true;
+        return ((this.v == e.w) && (this.w == e.v) && (this.weight == e.weight));
     }
 
     @Override

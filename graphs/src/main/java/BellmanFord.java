@@ -1,13 +1,13 @@
 import java.util.List;
 import java.util.LinkedList;
 
-public class BellmanFord {
+public class BellmanFord<T extends WeightedIntDigraph> {
     double[] distTo;
     DirectedEdge[] edgeTo;
-    WeightedListIntDigraph G;
+    T G;
     boolean valid;
 
-    public BellmanFord(WeightedListIntDigraph G, int s){
+    public BellmanFord(T G, int s){
         if(s < 0 || s >= G.V())
             throw new IllegalArgumentException("vertex " + s + "isn't between 0 and " + (G.V() -1));
         
@@ -59,8 +59,16 @@ public class BellmanFord {
         g1.addEdge(ed2);
         g1.addEdge(ed3);
         g1.addEdge(ed4);
-        BellmanFord b1 = new BellmanFord(g1, 0);
+        BellmanFord<WeightedListIntDigraph> b1 = new BellmanFord<>(g1, 0);
         System.out.println(b1.valid);
+
+        WeightedMatrixIntDigraph gM = new WeightedMatrixIntDigraph(4);
+        gM.addEdge(ed1);
+        gM.addEdge(ed2);
+        gM.addEdge(ed3);
+        gM.addEdge(ed4);
+        BellmanFord<WeightedMatrixIntDigraph> b2 = new BellmanFord<>(gM, 0);
+        System.out.println(b2.valid);
 
         WeightedListIntDigraph g = new WeightedListIntDigraph(4);
         DirectedEdge e1 = new DirectedEdge(0, 1, 3);
@@ -71,7 +79,15 @@ public class BellmanFord {
         g.addEdge(e2);
         g.addEdge(e3);
         g.addEdge(e4);
-        BellmanFord b = new BellmanFord(g, 0);
+        BellmanFord<WeightedListIntDigraph> b = new BellmanFord<>(g, 0);
         System.out.println(b.valid);
+
+        WeightedMatrixIntDigraph gM1 = new WeightedMatrixIntDigraph(4);
+        gM1.addEdge(e1);
+        gM1.addEdge(e2);
+        gM1.addEdge(e3);
+        gM1.addEdge(e4);
+        BellmanFord<WeightedMatrixIntDigraph> bM = new BellmanFord<>(gM1, 0);
+        System.out.println(bM.valid);
     }
 }

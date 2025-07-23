@@ -1,10 +1,12 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WeightedMatrixIntDigraph {
+public class WeightedMatrixIntDigraph implements WeightedIntDigraph{
     private final int V;
     private int E;
     private DirectedEdge[][] adj;
+    private HashSet<DirectedEdge> edges;
 
     public WeightedMatrixIntDigraph(int V){
         if(V < 0)
@@ -12,6 +14,17 @@ public class WeightedMatrixIntDigraph {
         this. V = V;
         this.E = 0;
         adj = new DirectedEdge[V][V];
+        edges = new HashSet<>();
+    }
+
+    @Override
+    public int V() {
+        return V;
+    }
+
+    @Override
+    public int E() {
+        return E;
     }
 
     /**
@@ -25,6 +38,7 @@ public class WeightedMatrixIntDigraph {
         if(e.to < 0 || e.to >= V)
             throw new IllegalArgumentException("vertex " + e.to + " is not between 0 and " + (V-1));
         adj[e.from][e.to] = e;
+        edges.add(e);
         E++;
     }
 
@@ -55,6 +69,10 @@ public class WeightedMatrixIntDigraph {
             s += "\n";
         }
         return s;
+    }
+
+    public HashSet<DirectedEdge> edges(){
+        return edges;
     }
 
     public static void main(String[] args){
