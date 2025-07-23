@@ -27,19 +27,15 @@ public class BellmanFord {
 
     private boolean bellmanFord(){
         for(int i = 1; i < G.V(); i++){
-            for(int v = 0; v < G.V(); v++){
-                for(DirectedEdge e: G.adj(v))
-                    relax(e);
-            }
+            for(DirectedEdge e: G.edges())
+                relax(e);
         }
 
-        for(int i = 0; i < G.V(); i++){
-            for(DirectedEdge e: G.adj(i)){
-                int v = e.from;
-                int w = e.to;
-                if(distTo[w] > distTo[v] + e.weight)
-                    return false;
-            }   
+        for(DirectedEdge e: G.edges()){
+            int v = e.from;
+            int w = e.to;
+            if(distTo[w] > distTo[v] + e.weight)
+                return false;
         }
         return true;
     }
