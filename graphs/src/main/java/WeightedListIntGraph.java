@@ -1,8 +1,9 @@
 import java.util.List;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Arrays;
 
-public class WeightedListIntGraph {
+public class WeightedListIntGraph implements WeightedIntGraph {
     private final int V;
     private int E;
     private List<UndirectedEdge>[] adj;
@@ -34,13 +35,13 @@ public class WeightedListIntGraph {
     * @post Add the undirected edge e this edge-weighted graph. 
     */
     public void addEdge(UndirectedEdge e) {
-        if(e.v < 0 || e.v >= V)
-            throw new IllegalArgumentException("vertex " + e.v + " is not between 0 and " + (V-1));
-        if(e.w < 0 || e.w >= V)
-            throw new IllegalArgumentException("vertex " + e.w + " is not between 0 and " + (V-1));
-        UndirectedEdge rev = new UndirectedEdge(e.w, e.v, e.weight);
-        adj[e.v].add(e);
-        adj[e.w].add(rev);
+        if(e.from < 0 || e.from >= V)
+            throw new IllegalArgumentException("vertex " + e.from + " is not between 0 and " + (V-1));
+        if(e.to < 0 || e.to >= V)
+            throw new IllegalArgumentException("vertex " + e.to + " is not between 0 and " + (V-1));
+        UndirectedEdge rev = new UndirectedEdge(e.to, e.from, e.weight);
+        adj[e.from].add(e);
+        adj[e.to].add(rev);
         edges.add(e);
         E++;
     }
@@ -71,6 +72,32 @@ public class WeightedListIntGraph {
         return edges;
     }
 
+    public boolean hasNegativeCycle(){
+        for(UndirectedEdge e : edges){
+            if(e.weight < 0)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isConnected(){
+        DepthFirstSearchWeightedIntGraph<WeightedListIntGraph> d =
+        new DepthFirstSearchWeightedIntGraph<WeightedListIntGraph>(this, 0);
+        return d.count == V;
+    }
+
+    /**
+     * @pre this graph doesn't have any negative weight.
+     * @post print the shortest path from v to w.
+     */
+    public String shortestPath(int v, int w){
+        DijkstraGraph d = new DijkstraGraph(this, v);
+        List<Integer> path = d.shortestPath(v, w);
+        if(path == null)
+            return "There isn't any path from " + v + " to "+ w;
+        return path.toString() + "Weight: " + Arrays.toString(d.distTo);
+    }
+
     public static void main(String[] args){
         WeightedListIntGraph g = new WeightedListIntGraph(8);
         UndirectedEdge e1 = new UndirectedEdge(0, 4, 9);        
@@ -91,6 +118,5 @@ public class WeightedListIntGraph {
         g.addEdge(e7);
         g.addEdge(e8);
         g.addEdge(e9);
-        System.out.println(g.edges().toString());
     }
 }

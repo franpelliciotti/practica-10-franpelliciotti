@@ -1,4 +1,4 @@
-public class DirectedEdge {
+public class DirectedEdge implements Edge {
     protected final int from;
     protected final int to;
     final double weight;
@@ -13,5 +13,15 @@ public class DirectedEdge {
     public String toString(){
         String s = "" + this.from + " | " + this.to + " | " + this.weight;
         return s;
+    }
+
+    @Override
+    public int from() {
+        return from;
+    }
+
+    @Override
+    public int to() {
+        return to;
     }
 }

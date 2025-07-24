@@ -1,9 +1,9 @@
-public class Dijkstra {
+public class DijkstraDigraph {
     double[] distTo;
     DirectedEdge[] edgeTo;
     IndexMinPQ<Double> pq;
 
-    public Dijkstra(WeightedListIntDigraph G, int s){
+    public DijkstraDigraph(WeightedListIntDigraph G, int s){
         if(s < 0 || s >= G.V())
             throw new IllegalArgumentException("vertex " + s + "isn't between 0 and " + (G.V() -1));
         

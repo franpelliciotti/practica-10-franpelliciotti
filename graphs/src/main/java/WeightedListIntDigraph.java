@@ -71,8 +71,18 @@ public class WeightedListIntDigraph implements WeightedIntDigraph{
     }
 
     public boolean hasNegativeCycle(){
-        BellmanFord b = new BellmanFord(this, 0);
+        BellmanFord<WeightedListIntDigraph> b = new BellmanFord<>(this, 0);
         return !b.valid;
+    }
+
+    public boolean isConnected(){
+        for(int i = 0; i < V; i++){
+            DepthFirstSearchWeightedIntDigraph<WeightedListIntDigraph> d = 
+            new DepthFirstSearchWeightedIntDigraph<WeightedListIntDigraph>(this, i);
+            if(!d.isSourceConnected())
+                return false;
+        }
+        return true;
     }
 
     public static void main(String[] args){

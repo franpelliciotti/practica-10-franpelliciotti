@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WeightedMatrixIntDigraph implements WeightedIntDigraph{
+public class WeightedMatrixIntDigraph implements WeightedIntDigraph {
     private final int V;
     private int E;
     private DirectedEdge[][] adj;

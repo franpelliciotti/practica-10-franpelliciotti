@@ -1,30 +1,29 @@
-public class UndirectedEdge implements Comparable<UndirectedEdge>{
-    protected final int v;
-    protected final int w;
+public class UndirectedEdge implements Comparable<UndirectedEdge>, Edge{
+    protected final int from;
+    protected final int to;
     protected final double weight;
 
-    public UndirectedEdge(int v, int w, double weight){
-        this.v = v;
-        this.w = w;
+    public UndirectedEdge(int from, int to, double weight){
+        this.from = from;
+        this.to = to;
         this.weight = weight;
     }
 
     public int other(int vertex){
-        if(vertex == v) return w;
-        else if(vertex == w) return v;
+        if(vertex == from) return to;
+        else if(vertex == to) return from;
         else 
-            throw new IllegalArgumentException("vertex must be either " + v + " or " + w);
+            throw new IllegalArgumentException("vertex must be either " + from + " or " + to);
     }
 
     @Override
     public String toString(){
-        String s = "|" + this.v + " | " + this.w + " | " + this.weight + "|";
+        String s = "|" + this.from + " | " + this.to + " | " + this.weight + "|";
         return s;
     }
 
     public boolean equals(UndirectedEdge e){
-        if(this == e) return true;
-        return ((this.v == e.w) && (this.w == e.v) && (this.weight == e.weight));
+        return this == e || ((this.from == e.to) && (this.to == e.from) && (this.weight == e.weight));
     }
 
     @Override
@@ -32,5 +31,15 @@ public class UndirectedEdge implements Comparable<UndirectedEdge>{
         if(this.weight < o.weight) return -1;
         else if(this.weight > o.weight) return 1;
         return 0;
+    }
+
+    @Override
+    public int from() {
+        return from;
+    }
+
+    @Override
+    public int to() {
+        return to;
     }
 }

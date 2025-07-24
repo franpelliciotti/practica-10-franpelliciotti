@@ -23,7 +23,7 @@ public class Kruskal {
 
         for(int i = 0; i < G.E() && mst.size() < G.V() - 1; i++){
             UndirectedEdge e = edges[i];
-            int v = e.v;
+            int v = e.from();
             int w = e.other(v);
 
             if(set.find(v) != set.find(w)){

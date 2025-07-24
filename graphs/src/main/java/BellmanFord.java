@@ -21,22 +21,22 @@ public class BellmanFord<T extends WeightedIntDigraph> {
             }
         }
         distTo[s] = 0.0;
-
+         
         valid = bellmanFord();
     }
 
     private boolean bellmanFord(){
         for(int i = 1; i < G.V(); i++){
-            for(DirectedEdge e: G.edges())
+            for(DirectedEdge e : G.edges()){
                 relax(e);
+            }
         }
-
         for(DirectedEdge e: G.edges()){
             int v = e.from;
             int w = e.to;
             if(distTo[w] > distTo[v] + e.weight)
                 return false;
-        }
+        }   
         return true;
     }
 
