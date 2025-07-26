@@ -92,10 +92,8 @@ public class WeightedListIntGraph implements WeightedIntGraph {
      */
     public String shortestPath(int v, int w){
         DijkstraGraph d = new DijkstraGraph(this, v);
-        List<Integer> path = d.shortestPath(v, w);
-        if(path == null)
-            return "There isn't any path from " + v + " to "+ w;
-        return path.toString() + "Weight: " + Arrays.toString(d.distTo);
+        List<Integer> path = d.shortestPath(w);
+        return path.toString() + " Weight: " + d.distTo[w];
     }
 
     public static void main(String[] args){
@@ -118,5 +116,8 @@ public class WeightedListIntGraph implements WeightedIntGraph {
         g.addEdge(e7);
         g.addEdge(e8);
         g.addEdge(e9);
+        for(int i = 1; i < g.V(); i++){
+            System.out.println(g.shortestPath(0, i));
+        }
     }
 }

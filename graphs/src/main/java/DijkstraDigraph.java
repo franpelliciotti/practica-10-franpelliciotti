@@ -1,12 +1,16 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class DijkstraDigraph {
     double[] distTo;
     DirectedEdge[] edgeTo;
     IndexMinPQ<Double> pq;
+    int s;
 
     public DijkstraDigraph(WeightedListIntDigraph G, int s){
         if(s < 0 || s >= G.V())
             throw new IllegalArgumentException("vertex " + s + "isn't between 0 and " + (G.V() -1));
-        
+        this.s = s;
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
         pq = new IndexMinPQ<>(G.V());
@@ -35,4 +39,22 @@ public class DijkstraDigraph {
             pq.decreaseKey(w, distTo[w]);
         }
     }
+
+    private boolean hasPathto(int w){
+        return edgeTo[w] != null;
+    }
+
+    public List<Integer> shortestPath(int w){
+        if(!hasPathto(w)) return null;
+        List<Integer> path = new LinkedList<>();
+        int i = w;
+        while(i != s){
+            path.addFirst(w);
+            w = edgeTo[w].from();
+            i = w;
+        }
+        path.addFirst(s);
+        return path;
+    }
+
 }

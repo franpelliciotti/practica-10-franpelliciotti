@@ -5,11 +5,12 @@ public class DijkstraGraph {
     double[] distTo;
     UndirectedEdge[] edgeTo;
     IndexMinPQ<Double> pq;
+    int s;
 
     public DijkstraGraph(WeightedListIntGraph G, int s){
         if(s < 0 || s >= G.V())
             throw new IllegalArgumentException("vertex " + s + "isn't between 0 and " + (G.V() -1));
-        
+        this.s = s;
         distTo = new double[G.V()];
         edgeTo = new UndirectedEdge[G.V()];
         pq = new IndexMinPQ<>(G.V());
@@ -43,13 +44,16 @@ public class DijkstraGraph {
         return edgeTo[w] != null;
     }
 
-    public List<Integer> shortestPath(int v, int w){
+    public List<Integer> shortestPath(int w){
         if(!hasPathto(w)) return null;
         List<Integer> path = new LinkedList<>();
-        for(int i = w; i != v; w = edgeTo[w].from()){
+        int i = w;
+        while(i != s){
             path.addFirst(w);
+            w = edgeTo[w].from();
+            i = w;
         }
-        path.addFirst(v);
+        path.addFirst(s);
         return path;
     }
 }
