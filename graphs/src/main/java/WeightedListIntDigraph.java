@@ -6,7 +6,6 @@ public class WeightedListIntDigraph implements WeightedIntDigraph{
     private final int V;
     private int E;
     private List<DirectedEdge>[] adj;
-    private HashSet<DirectedEdge> edges;
 
     @SuppressWarnings("unchecked")
     public WeightedListIntDigraph(int V){
@@ -18,7 +17,6 @@ public class WeightedListIntDigraph implements WeightedIntDigraph{
         for(int i = 0; i < V; i++){
             adj[i] = new LinkedList<DirectedEdge>();
         }
-        edges = new HashSet<>();
     }
 
     public int V(){
@@ -40,7 +38,6 @@ public class WeightedListIntDigraph implements WeightedIntDigraph{
         if(e.to < 0 || e.to >= V)
             throw new IllegalArgumentException("vertex " + e.to + " is not between 0 and " + (V-1));
         adj[e.from].add(e);
-        edges.add(e);
         E++;
     }
 
@@ -64,10 +61,6 @@ public class WeightedListIntDigraph implements WeightedIntDigraph{
             s += "\n";
         }
         return s;
-    }
-
-    public HashSet<DirectedEdge> edges(){
-        return edges;
     }
 
     public boolean hasNegativeCycle(){

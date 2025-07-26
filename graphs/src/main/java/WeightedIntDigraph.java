@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.List;
 
 public interface WeightedIntDigraph {
@@ -9,6 +8,4 @@ public interface WeightedIntDigraph {
     public void addEdge(DirectedEdge e);
 
     public List<DirectedEdge> adj(int v);
-
-    public HashSet<DirectedEdge> edges();
 }
